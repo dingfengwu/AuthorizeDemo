@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WebApplication3.Db;
 using WebApplication3.Middleware;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity.EntityFramework;
-using IdentitySample.Models;
-using Microsoft.Extensions.OptionsModel;
-using Microsoft.AspNet.Identity;
 
 namespace WebApplication3
 {
@@ -32,12 +26,14 @@ namespace WebApplication3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
-                options.Cookies.ApplicationCookie.AuthenticationScheme = "ApplicationCookie";
-                //options.Cookies.ApplicationCookie.DataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo("C:\\Github\\Identity\\artifacts"));
-                options.Cookies.ApplicationCookie.CookieName = "Interop";
-            })
-               .AddDefaultTokenProviders();
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration["Data:Default"]);
+                });
+                
+
 
             // Add framework services.
             services.AddMvc(options =>

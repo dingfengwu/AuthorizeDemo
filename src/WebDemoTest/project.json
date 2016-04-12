@@ -1,0 +1,22 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "WebDemoTest Class Library",
+  "authors": [ "wudingfeng" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "WebApplication3": "1.0.0-*",
+    "xunit": "2.1.0",
+    "xunit.runner.dnx": "2.1.0-rc1-build204",
+    "Microsoft.AspNet.TestHost": "1.0.0-rc1-final"
+  },
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+
+      }
+    }
+  }
+}
