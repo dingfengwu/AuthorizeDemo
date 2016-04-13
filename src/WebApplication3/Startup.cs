@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,12 +25,12 @@ namespace WebApplication3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                {
-                    options.UseSqlServer(Configuration["Data:Default"]);
-                });
+            //services.AddEntityFramework()
+            //    .AddSqlServer()
+            //    .AddDbContext<ApplicationDbContext>(options =>
+            //    {
+            //        options.UseSqlServer(Configuration["Data:Default"]);
+            //    });
                 
 
 
@@ -46,6 +45,8 @@ namespace WebApplication3
 
                 options.Filters.Add(new GlobalExceptionFilter());
             });
+
+            services.AddInstance<IConfigurationRoot>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
